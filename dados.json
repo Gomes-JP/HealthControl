@@ -1,0 +1,30 @@
+{
+  "dietas": {
+    "perda_peso": [
+      { "nome": "Dieta Low Carb", "descricao": "Reduza a ingestão de carboidratos e aumente a ingestão de proteínas." },
+      { "nome": "Dieta Mediterrânea", "descricao": "Baseada em frutas, vegetais, grãos integrais e azeite de oliva." }
+    ],
+    "ganho_massa": [
+      { "nome": "Dieta Hipercalórica", "descricao": "Aumente a ingestão de calorias e proteínas para ganho de massa muscular." },
+      { "nome": "Dieta Rica em Proteínas", "descricao": "Foco em alimentos ricos em proteínas para construção muscular." }
+    ],
+    "manutencao": [
+      { "nome": "Dieta Balanceada", "descricao": "Mantenha uma dieta equilibrada com carboidratos, proteínas e gorduras." },
+      { "nome": "Dieta Flexível", "descricao": "Dieta que permite flexibilidade na escolha dos alimentos, mantendo o equilíbrio calórico." }
+    ]
+  },
+  "exercicios": {
+    "perda_peso": [
+      { "nome": "Corrida", "calorias_queimadas": 600 },
+      { "nome": "HIIT", "calorias_queimadas": 500 }
+    ],
+    "ganho_massa": [
+      { "nome": "Levantamento de Peso", "calorias_queimadas": 300 },
+      { "nome": "CrossFit", "calorias_queimadas": 400 }
+    ],
+    "manutencao": [
+      { "nome": "Yoga", "calorias_queimadas": 200 },
+      { "nome": "Caminhada", "calorias_queimadas": 250 }
+    ]
+  }
+}

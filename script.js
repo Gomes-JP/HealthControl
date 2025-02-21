@@ -9,8 +9,40 @@ document.addEventListener('DOMContentLoaded', function() {
     const objetivoSelect = document.getElementById('objetivo');
     const gastoCaloricoInput = document.getElementById('gasto-calorico');
 
-    let alimentos = [];
-    let gastoCaloricoMedio = 0;
+    let alimentos = JSON.parse(localStorage.getItem('alimentos')) || [];
+    let gastoCaloricoMedio = parseInt(localStorage.getItem('gastoCaloricoMedio')) || 0;
+    let dados = { dietas: {}, exercicios: {} };
+
+    // Carregar dados de dietas e exercícios do arquivo JSON
+    fetch('dados.json')
+        .then(response => response.json())
+        .then(data => {
+            dados = data;
+        })
+        .catch(error => console.error('Erro ao carregar dados:', error));
+
+    // Carregar alimentos salvos no localStorage
+    function carregarAlimentos() {
+        listaAlimentos.innerHTML = '';
+        alimentos.forEach(alimento => {
+            const alimentoItem = document.createElement('div');
+            alimentoItem.className = 'alimento-item';
+
+            const label = document.createElement('label');
+            label.textContent = `${alimento.nome} (${alimento.calorias} kcal)`;
+
+            const inputQuantidade = document.createElement('input');
+            inputQuantidade.type = 'number';
+            inputQuantidade.min = '0';
+            inputQuantidade.value = '1';
+
+            alimentoItem.appendChild(label);
+            alimentoItem.appendChild(inputQuantidade);
+            listaAlimentos.appendChild(alimentoItem);
+        });
+    }
+
+    carregarAlimentos();
 
     // Adicionar alimento
     formAlimento.addEventListener('submit', function(event) {
@@ -23,24 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const gorduras = parseFloat(document.getElementById('gorduras').value);
 
         alimentos.push({ nome, calorias, proteinas, carboidratos, gorduras });
+        localStorage.setItem('alimentos', JSON.stringify(alimentos));
 
-        // Atualizar a lista de alimentos
-        const alimentoItem = document.createElement('div');
-        alimentoItem.className = 'alimento-item';
-
-        const label = document.createElement('label');
-        label.textContent = `${nome} (${calorias} kcal)`;
-
-        const inputQuantidade = document.createElement('input');
-        inputQuantidade.type = 'number';
-        inputQuantidade.min = '0';
-        inputQuantidade.value = '1';
-
-        alimentoItem.appendChild(label);
-        alimentoItem.appendChild(inputQuantidade);
-        listaAlimentos.appendChild(alimentoItem);
-
-        // Limpar o formulário
+        carregarAlimentos();
         formAlimento.reset();
     });
 
@@ -51,10 +68,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const alimentoItems = document.querySelectorAll('.alimento-item');
         let total = 0;
 
-        alimentoItems.forEach(item => {
-            const nome = item.querySelector('label').textContent.split(' ')[0];
+        alimentoItems.forEach((item, index) => {
             const quantidade = parseInt(item.querySelector('input').value);
-            const alimento = alimentos.find(a => a.nome === nome);
+            const alimento = alimentos[index];
             if (alimento) {
                 total += alimento.calorias * quantidade;
             }
@@ -67,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     formGastoCalorico.addEventListener('submit', function(event) {
         event.preventDefault();
         gastoCaloricoMedio = parseInt(gastoCaloricoInput.value);
+        localStorage.setItem('gastoCaloricoMedio', gastoCaloricoMedio);
         alert(`Gasto calórico médio salvo: ${gastoCaloricoMedio} kcal/dia`);
     });
 
@@ -75,39 +92,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const objetivo = objetivoSelect.value;
         const totalCaloriasConsumidas = parseInt(totalCalorias.textContent.split(': ')[1]) || 0;
 
-        const dietas = {
-            perda_peso: [
-                { nome: "Dieta Low Carb", descricao: "Reduza a ingestão de carboidratos e aumente a ingestão de proteínas." },
-                { nome: "Dieta Mediterrânea", descricao: "Baseada em frutas, vegetais, grãos integrais e azeite de oliva." }
-            ],
-            ganho_massa: [
-                { nome: "Dieta Hipercalórica", descricao: "Aumente a ingestão de calorias e proteínas para ganho de massa muscular." },
-                { nome: "Dieta Rica em Proteínas", descricao: "Foco em alimentos ricos em proteínas para construção muscular." }
-            ],
-            manutencao: [
-                { nome: "Dieta Balanceada", descricao: "Mantenha uma dieta equilibrada com carboidratos, proteínas e gorduras." },
-                { nome: "Dieta Flexível", descricao: "Dieta que permite flexibilidade na escolha dos alimentos, mantendo o equilíbrio calórico." }
-            ]
-        };
+        const dietas = dados.dietas[objetivo];
+        const exercicios = dados.exercicios[objetivo];
 
-        const exercicios = {
-            perda_peso: [
-                { nome: "Corrida", calorias_queimadas: 600 },
-                { nome: "HIIT", calorias_queimadas: 500 }
-            ],
-            ganho_massa: [
-                { nome: "Levantamento de Peso", calorias_queimadas: 300 },
-                { nome: "CrossFit", calorias_queimadas: 400 }
-            ],
-            manutencao: [
-                { nome: "Yoga", calorias_queimadas: 200 },
-                { nome: "Caminhada", calorias_queimadas: 250 }
-            ]
-        };
+        if (!dietas || !exercicios) {
+            sugestaoDiv.innerHTML = `<p>Nenhuma sugestão disponível para o objetivo selecionado.</p>`;
+            return;
+        }
 
-        // Escolher dieta e exercício com base no objetivo e nas calorias consumidas
-        const dietaSugerida = dietas[objetivo][Math.floor(Math.random() * dietas[objetivo].length)];
-        const exercicioSugerido = exercicios[objetivo][Math.floor(Math.random() * exercicios[objetivo].length)];
+        const dietaSugerida = dietas[Math.floor(Math.random() * dietas.length)];
+        const exercicioSugerido = exercicios[Math.floor(Math.random() * exercicios.length)];
 
         // Ajustar a sugestão com base nas calorias consumidas e no gasto calórico
         let mensagemCalorias = '';
