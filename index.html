@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Saúde</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Controle de Saúde</h1>
+
+        <!-- Seção de Adicionar Alimento -->
+        <section>
+            <h2>Adicionar Alimento</h2>
+            <form id="form-alimento">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+
+                <label for="calorias">Calorias:</label>
+                <input type="number" id="calorias" name="calorias" required>
+
+                <label for="proteinas">Proteínas (g):</label>
+                <input type="number" step="0.1" id="proteinas" name="proteinas" required>
+
+                <label for="carboidratos">Carboidratos (g):</label>
+                <input type="number" step="0.1" id="carboidratos" name="carboidratos" required>
+
+                <label for="gorduras">Gorduras (g):</label>
+                <input type="number" step="0.1" id="gorduras" name="gorduras" required>
+
+                <button type="submit">Adicionar Alimento</button>
+            </form>
+        </section>
+
+        <!-- Seção de Calcular Calorias -->
+        <section>
+            <h2>Calcular Calorias Consumidas</h2>
+            <form id="form-calorias">
+                <label for="refeicao">Selecione os alimentos consumidos:</label>
+                <select id="refeicao" name="refeicao" multiple>
+                    <!-- Os alimentos serão carregados dinamicamente aqui -->
+                </select>
+                <button type="submit">Calcular Calorias</button>
+            </form>
+            <p id="total-calorias"></p>
+        </section>
+
+        <!-- Seção de Sugerir Dieta e Exercício -->
+        <section>
+            <h2>Sugerir Dieta e Exercício</h2>
+            <button id="btn-sugerir">Sugerir Dieta e Exercício</button>
+            <div id="sugestao"></div>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
