@@ -72,3 +72,32 @@ button:hover {
 #sugestao h3 {
     color: #ff6e6c; /* Títulos da sugestão em coral */
 }
+
+/* Estilos para a seção de alimentos */
+.alimentos-section {
+    display: flex;
+    gap: 20px;
+}
+
+.coluna-esquerda, .coluna-direita {
+    flex: 1;
+}
+
+/* Estilos para a lista de alimentos */
+#lista-alimentos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#lista-alimentos label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fbdd74; /* Texto dos checkboxes em amarelo claro */
+}
+
+#lista-alimentos input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
