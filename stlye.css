@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1f1235; /* Fundo escuro */
+    color: #fbdd74; /* Texto principal em amarelo claro */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #67568c; /* Fundo do container em roxo médio */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+h1, h2 {
+    color: #ff6e6c; /* Títulos em coral */
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fbdd74; /* Texto dos labels em amarelo claro */
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ff6e6c; /* Borda em coral */
+    border-radius: 4px;
+    background-color: #1f1235; /* Fundo dos inputs em roxo escuro */
+    color: #fbdd74; /* Texto dos inputs em amarelo claro */
+}
+
+button {
+    background-color: #ff6e6c; /* Botão em coral */
+    color: #1f1235; /* Texto do botão em roxo escuro */
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #fbdd74; /* Botão hover em amarelo claro */
+    color: #1f1235; /* Texto do botão hover em roxo escuro */
+}
+
+#total-calorias {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ff6e6c; /* Texto do total de calorias em coral */
+}
+
+#sugestao {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #1f1235; /* Fundo da sugestão em roxo escuro */
+    border: 1px solid #ff6e6c; /* Borda em coral */
+    border-radius: 4px;
+    color: #fbdd74; /* Texto da sugestão em amarelo claro */
+}
+
+#sugestao h3 {
+    color: #ff6e6c; /* Títulos da sugestão em coral */
+}
