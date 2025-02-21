@@ -10,61 +10,80 @@
 <div class="container">
     <h1>Controle de Saúde</h1>
 
-    <!-- Seção de Alimentos -->
-    <section class="alimentos-section">
-        <!-- Coluna da Esquerda: Adicionar Alimento -->
-        <div class="coluna-esquerda">
-            <h2>Adicionar Alimento</h2>
-            <form id="form-alimento">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
+    <!-- Abas -->
+    <div class="abas">
+        <button class="aba-link" onclick="abrirAba(event, 'aba-alimentos')">Alimentos e Calorias</button>
+        <button class="aba-link" onclick="abrirAba(event, 'aba-sugestoes')">Gasto Calórico e Sugestões</button>
+    </div>
 
-                <label for="calorias">Calorias:</label>
-                <input type="number" id="calorias" name="calorias" required>
+    <!-- Aba 1: Alimentos e Cálculo Calórico -->
+    <div id="aba-alimentos" class="aba-conteudo">
+        <section class="alimentos-section">
+            <!-- Coluna da Esquerda: Adicionar Alimento -->
+            <div class="coluna-esquerda">
+                <h2>Adicionar Alimento</h2>
+                <form id="form-alimento">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
 
-                <label for="proteinas">Proteínas (g):</label>
-                <input type="number" step="0.1" id="proteinas" name="proteinas" required>
+                    <label for="calorias">Calorias:</label>
+                    <input type="number" id="calorias" name="calorias" required>
 
-                <label for="carboidratos">Carboidratos (g):</label>
-                <input type="number" step="0.1" id="carboidratos" name="carboidratos" required>
+                    <label for="proteinas">Proteínas (g):</label>
+                    <input type="number" step="0.1" id="proteinas" name="proteinas" required>
 
-                <label for="gorduras">Gorduras (g):</label>
-                <input type="number" step="0.1" id="gorduras" name="gorduras" required>
+                    <label for="carboidratos">Carboidratos (g):</label>
+                    <input type="number" step="0.1" id="carboidratos" name="carboidratos" required>
 
-                <button type="submit">Adicionar Alimento</button>
-            </form>
-        </div>
+                    <label for="gorduras">Gorduras (g):</label>
+                    <input type="number" step="0.1" id="gorduras" name="gorduras" required>
 
-        <!-- Coluna da Direita: Listar Alimentos -->
-        <div class="coluna-direita">
-            <h2>Alimentos Cadastrados</h2>
-            <div id="lista-alimentos">
-                <!-- Os alimentos serão carregados dinamicamente aqui -->
+                    <button type="submit">Adicionar Alimento</button>
+                </form>
             </div>
-        </div>
-    </section>
 
-    <!-- Seção de Calcular Calorias -->
-    <section>
-        <h2>Calcular Calorias Consumidas</h2>
-        <form id="form-calorias">
-            <button type="submit">Calcular Calorias</button>
-        </form>
-        <p id="total-calorias"></p>
-    </section>
+            <!-- Coluna da Direita: Listar Alimentos -->
+            <div class="coluna-direita">
+                <h2>Alimentos Cadastrados</h2>
+                <div id="lista-alimentos">
+                    <!-- Os alimentos serão carregados dinamicamente aqui -->
+                </div>
+            </div>
+        </section>
 
-    <!-- Seção de Sugerir Dieta e Exercício -->
-    <section>
-        <h2>Sugerir Dieta e Exercício</h2>
-        <label for="objetivo">Selecione seu objetivo:</label>
-        <select id="objetivo">
-            <option value="perda_peso">Perda de Peso</option>
-            <option value="ganho_massa">Ganho de Massa</option>
-            <option value="manutencao">Manutenção</option>
-        </select>
-        <button id="btn-sugerir">Sugerir Dieta e Exercício</button>
-        <div id="sugestao"></div>
-    </section>
+        <!-- Seção de Calcular Calorias -->
+        <section>
+            <h2>Calcular Calorias Consumidas</h2>
+            <form id="form-calorias">
+                <button type="submit">Calcular Calorias</button>
+            </form>
+            <p id="total-calorias"></p>
+        </section>
+    </div>
+
+    <!-- Aba 2: Gasto Calórico e Sugestões -->
+    <div id="aba-sugestoes" class="aba-conteudo" style="display: none;">
+        <section>
+            <h2>Gasto Calórico Médio</h2>
+            <form id="form-gasto-calorico">
+                <label for="gasto-calorico">Gasto Calórico Médio (kcal/dia):</label>
+                <input type="number" id="gasto-calorico" name="gasto-calorico" required>
+                <button type="submit">Salvar Gasto Calórico</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Sugerir Dieta e Exercício</h2>
+            <label for="objetivo">Selecione seu objetivo:</label>
+            <select id="objetivo">
+                <option value="perda_peso">Perda de Peso</option>
+                <option value="ganho_massa">Ganho de Massa</option>
+                <option value="manutencao">Manutenção</option>
+            </select>
+            <button id="btn-sugerir">Sugerir Dieta e Exercício</button>
+            <div id="sugestao"></div>
+        </section>
+    </div>
 </div>
 
 <script src="script.js"></script>

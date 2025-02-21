@@ -1,13 +1,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     const formAlimento = document.getElementById('form-alimento');
     const formCalorias = document.getElementById('form-calorias');
+    const formGastoCalorico = document.getElementById('form-gasto-calorico');
     const btnSugerir = document.getElementById('btn-sugerir');
     const listaAlimentos = document.getElementById('lista-alimentos');
     const totalCalorias = document.getElementById('total-calorias');
     const sugestaoDiv = document.getElementById('sugestao');
     const objetivoSelect = document.getElementById('objetivo');
+    const gastoCaloricoInput = document.getElementById('gasto-calorico');
 
     let alimentos = [];
+    let gastoCaloricoMedio = 0;
 
     // Adicionar alimento
     formAlimento.addEventListener('submit', function(event) {
@@ -22,14 +25,20 @@ document.addEventListener('DOMContentLoaded', function() {
         alimentos.push({ nome, calorias, proteinas, carboidratos, gorduras });
 
         // Atualizar a lista de alimentos
+        const alimentoItem = document.createElement('div');
+        alimentoItem.className = 'alimento-item';
+
         const label = document.createElement('label');
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.name = 'alimento';
-        checkbox.value = nome;
-        label.appendChild(checkbox);
-        label.appendChild(document.createTextNode(`${nome} (${calorias} kcal)`));
-        listaAlimentos.appendChild(label);
+        label.textContent = `${nome} (${calorias} kcal)`;
+
+        const inputQuantidade = document.createElement('input');
+        inputQuantidade.type = 'number';
+        inputQuantidade.min = '0';
+        inputQuantidade.value = '1';
+
+        alimentoItem.appendChild(label);
+        alimentoItem.appendChild(inputQuantidade);
+        listaAlimentos.appendChild(alimentoItem);
 
         // Limpar o formulário
         formAlimento.reset();
@@ -39,13 +48,26 @@ document.addEventListener('DOMContentLoaded', function() {
     formCalorias.addEventListener('submit', function(event) {
         event.preventDefault();
 
-        const selectedCheckboxes = document.querySelectorAll('#lista-alimentos input[type="checkbox"]:checked');
-        const total = Array.from(selectedCheckboxes).reduce((sum, checkbox) => {
-            const alimento = alimentos.find(a => a.nome === checkbox.value);
-            return sum + (alimento ? alimento.calorias : 0);
-        }, 0);
+        const alimentoItems = document.querySelectorAll('.alimento-item');
+        let total = 0;
+
+        alimentoItems.forEach(item => {
+            const nome = item.querySelector('label').textContent.split(' ')[0];
+            const quantidade = parseInt(item.querySelector('input').value);
+            const alimento = alimentos.find(a => a.nome === nome);
+            if (alimento) {
+                total += alimento.calorias * quantidade;
+            }
+        });
 
         totalCalorias.textContent = `Total de calorias consumidas: ${total}`;
+    });
+
+    // Salvar gasto calórico médio
+    formGastoCalorico.addEventListener('submit', function(event) {
+        event.preventDefault();
+        gastoCaloricoMedio = parseInt(gastoCaloricoInput.value);
+        alert(`Gasto calórico médio salvo: ${gastoCaloricoMedio} kcal/dia`);
     });
 
     // Sugerir dieta e exercício
@@ -87,14 +109,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const dietaSugerida = dietas[objetivo][Math.floor(Math.random() * dietas[objetivo].length)];
         const exercicioSugerido = exercicios[objetivo][Math.floor(Math.random() * exercicios[objetivo].length)];
 
-        // Ajustar a sugestão com base nas calorias consumidas
+        // Ajustar a sugestão com base nas calorias consumidas e no gasto calórico
         let mensagemCalorias = '';
-        if (objetivo === 'perda_peso' && totalCaloriasConsumidas > 2000) {
-            mensagemCalorias = `<p>Você consumiu ${totalCaloriasConsumidas} calorias. Considere reduzir o consumo para atingir seu objetivo de perda de peso.</p>`;
-        } else if (objetivo === 'ganho_massa' && totalCaloriasConsumidas < 2500) {
-            mensagemCalorias = `<p>Você consumiu ${totalCaloriasConsumidas} calorias. Considere aumentar o consumo para atingir seu objetivo de ganho de massa.</p>`;
-        } else if (objetivo === 'manutencao' && (totalCaloriasConsumidas < 1800 || totalCaloriasConsumidas > 2200)) {
-            mensagemCalorias = `<p>Você consumiu ${totalCaloriasConsumidas} calorias. Tente manter o consumo entre 1800 e 2200 calorias para manutenção.</p>`;
+        const balancoCalorico = totalCaloriasConsumidas - gastoCaloricoMedio;
+
+        if (objetivo === 'perda_peso' && balancoCalorico > 0) {
+            mensagemCalorias = `<p>Você está consumindo ${balancoCalorico} calorias a mais do que gasta. Considere reduzir o consumo para atingir seu objetivo de perda de peso.</p>`;
+        } else if (objetivo === 'ganho_massa' && balancoCalorico < 500) {
+            mensagemCalorias = `<p>Você está consumindo ${balancoCalorico} calorias a menos do que precisa. Considere aumentar o consumo para atingir seu objetivo de ganho de massa.</p>`;
+        } else if (objetivo === 'manutencao' && Math.abs(balancoCalorico) > 200) {
+            mensagemCalorias = `<p>Você está consumindo ${balancoCalorico} calorias fora da faixa ideal. Tente ajustar o consumo para manter o equilíbrio calórico.</p>`;
         }
 
         sugestaoDiv.innerHTML = `
@@ -106,3 +130,15 @@ document.addEventListener('DOMContentLoaded', function() {
         `;
     });
 });
+
+// Função para alternar entre abas
+function abrirAba(event, nomeAba) {
+    const abasConteudo = document.querySelectorAll('.aba-conteudo');
+    abasConteudo.forEach(aba => aba.style.display = 'none');
+
+    const abaLinks = document.querySelectorAll('.aba-link');
+    abaLinks.forEach(link => link.classList.remove('ativa'));
+
+    document.getElementById(nomeAba).style.display = 'block';
+    event.currentTarget.classList.add('ativa');
+}
