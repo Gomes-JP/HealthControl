@@ -59,20 +59,3 @@ def sugerir_dieta_e_exercicio(calorias_consumidas):
     conn.close()
 
     return dieta, exercicio
-
-
-
-criar_banco_de_dados()
-
-# Exemplo de uso
-refeicao = ['Maçã', 'Pão']
-print(f"Total de calorias: {calcular_calorias(refeicao)}")
-
-# Exemplo de uso
-adicionar_alimento('Maçã', 52, 0.3, 14, 0.2)
-
-
-# Exemplo de uso
-dieta, exercicio = sugerir_dieta_e_exercicio(500)
-print(f"Dieta sugerida: {dieta[0]} - {dieta[1]}")
-print(f"Exercício sugerido: {exercicio[0]} - Queima {exercicio[1]} calorias")
