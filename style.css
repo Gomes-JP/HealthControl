@@ -8,6 +8,7 @@ body {
 
 .container {
     width: 80%;
+    max-width: 800px; /* Limitar a largura máxima do container */
     margin: 0 auto;
     padding: 20px;
     background-color: #67568c; /* Fundo do container em roxo médio */
@@ -33,6 +34,7 @@ label {
 
 input, select, button {
     width: 100%;
+    max-width: 300px; /* Limitar a largura máxima dos inputs e botões */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ff6e6c; /* Borda em coral */
@@ -127,6 +129,7 @@ button:hover {
     font-weight: bold;
     text-align: center;
     border-radius: 4px;
+    max-width: 200px; /* Limitar a largura máxima dos botões das abas */
 }
 
 .aba-link:hover {
