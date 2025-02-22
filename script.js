@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Carregar alimentos salvos no localStorage
     function carregarAlimentos() {
         listaAlimentos.innerHTML = '';
-        alimentos.forEach(alimento => {
+        alimentos.forEach((alimento, index) => {
             const alimentoItem = document.createElement('div');
             alimentoItem.className = 'alimento-item';
 
@@ -36,10 +36,23 @@ document.addEventListener('DOMContentLoaded', function() {
             inputQuantidade.min = '0';
             inputQuantidade.value = '1';
 
+            const btnRemover = document.createElement('button');
+            btnRemover.textContent = 'Remover';
+            btnRemover.className = 'btn-remover';
+            btnRemover.addEventListener('click', () => removerAlimento(index));
+
             alimentoItem.appendChild(label);
             alimentoItem.appendChild(inputQuantidade);
+            alimentoItem.appendChild(btnRemover);
             listaAlimentos.appendChild(alimentoItem);
         });
+    }
+
+    // Função para remover um alimento
+    function removerAlimento(index) {
+        alimentos.splice(index, 1); // Remove o alimento do array
+        localStorage.setItem('alimentos', JSON.stringify(alimentos)); // Atualiza o localStorage
+        carregarAlimentos(); // Recarrega a lista de alimentos
     }
 
     carregarAlimentos();
