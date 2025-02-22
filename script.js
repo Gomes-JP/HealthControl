@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             inputQuantidade.value = '1';
 
             const btnRemover = document.createElement('button');
-            btnRemover.textContent = 'Remover';
+            btnRemover.textContent = 'x';
             btnRemover.className = 'btn-remover';
             btnRemover.addEventListener('click', () => removerAlimento(index));
 

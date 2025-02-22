@@ -124,6 +124,7 @@ button:hover {
     background-color: #ff6e6c; /* Coral */
     color: #1f1235; /* Roxo escuro */
     border: none;
+    max-width: 50px;
     padding: 5px 10px;
     border-radius: 4px;
     cursor: pointer;
