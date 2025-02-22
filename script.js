@@ -5,6 +5,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const btnSugerir = document.getElementById('btn-sugerir');
     const listaAlimentos = document.getElementById('lista-alimentos');
     const totalCalorias = document.getElementById('total-calorias');
+    const totalProteinas = document.getElementById('total-proteinas');
+    const totalCarboidratos = document.getElementById('total-carboidratos');
+    const totalGorduras = document.getElementById('total-gorduras');
     const sugestaoDiv = document.getElementById('sugestao');
     const objetivoSelect = document.getElementById('objetivo');
     const gastoCaloricoInput = document.getElementById('gasto-calorico');
@@ -74,22 +77,28 @@ document.addEventListener('DOMContentLoaded', function() {
         formAlimento.reset();
     });
 
-    // Calcular calorias
+    // Calcular totais
     formCalorias.addEventListener('submit', function(event) {
         event.preventDefault();
 
         const alimentoItems = document.querySelectorAll('.alimento-item');
-        let total = 0;
+        let totalCal = 0, totalProt = 0, totalCarb = 0, totalGord = 0;
 
         alimentoItems.forEach((item, index) => {
             const quantidade = parseInt(item.querySelector('input').value);
             const alimento = alimentos[index];
             if (alimento) {
-                total += alimento.calorias * quantidade;
+                totalCal += alimento.calorias * quantidade;
+                totalProt += alimento.proteinas * quantidade;
+                totalCarb += alimento.carboidratos * quantidade;
+                totalGord += alimento.gorduras * quantidade;
             }
         });
 
-        totalCalorias.textContent = `Total de calorias consumidas: ${total}`;
+        totalCalorias.textContent = `Total de calorias consumidas: ${totalCal}`;
+        totalProteinas.textContent = `Total de proteínas consumidas: ${totalProt.toFixed(1)}g`;
+        totalCarboidratos.textContent = `Total de carboidratos consumidos: ${totalCarb.toFixed(1)}g`;
+        totalGorduras.textContent = `Total de gorduras consumidas: ${totalGord.toFixed(1)}g`;
     });
 
     // Salvar gasto calórico médio

@@ -12,11 +12,11 @@
 
     <!-- Abas -->
     <div class="abas">
-        <button class="aba-link" onclick="abrirAba(event, 'aba-alimentos')">Alimentos e Calorias</button>
+        <button class="aba-link" onclick="abrirAba(event, 'aba-alimentos')">Alimentos e Nutrientes</button>
         <button class="aba-link" onclick="abrirAba(event, 'aba-sugestoes')">Gasto Calórico e Sugestões</button>
     </div>
 
-    <!-- Aba 1: Alimentos e Cálculo Calórico -->
+    <!-- Aba 1: Alimentos e Nutrientes -->
     <div id="aba-alimentos" class="aba-conteudo">
         <section class="alimentos-section">
             <!-- Coluna da Esquerda: Adicionar Alimento -->
@@ -51,13 +51,16 @@
             </div>
         </section>
 
-        <!-- Seção de Calcular Calorias -->
+        <!-- Seção de Calcular Totais -->
         <section>
-            <h2>Calcular Calorias Consumidas</h2>
+            <h2>Totais Consumidos</h2>
             <form id="form-calorias">
-                <button type="submit">Calcular Calorias</button>
+                <button type="submit">Calcular Totais</button>
             </form>
             <p id="total-calorias"></p>
+            <p id="total-proteinas"></p>
+            <p id="total-carboidratos"></p>
+            <p id="total-gorduras"></p>
         </section>
     </div>
 

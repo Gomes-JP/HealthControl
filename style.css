@@ -34,7 +34,7 @@ label {
 
 input, select, button {
     width: 100%;
-    max-width: 150px; /* Limitar a largura máxima dos inputs e botões */
+    max-width: 200px; /* Limitar a largura máxima dos inputs e botões */
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ff6e6c; /* Borda em coral */
@@ -147,7 +147,7 @@ button:hover {
     font-weight: bold;
     text-align: center;
     border-radius: 4px;
-    max-width: 100px; /* Limitar a largura máxima dos botões das abas */
+    max-width: 200px; /* Limitar a largura máxima dos botões das abas */
 }
 
 .aba-link:hover {
